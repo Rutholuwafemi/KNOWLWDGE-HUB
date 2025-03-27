@@ -115,6 +115,9 @@ public class Book {
         public void setFormat(String format) {
                 this.format = format;
         }
+
+        public void setActive(boolean b) {
+        }
 }
 
 

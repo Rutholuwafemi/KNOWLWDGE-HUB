@@ -1,12 +1,5 @@
 package org.KnowledgeHub.repository;
 
-import javax.management.relation.Role;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Optional;
-
 //ublic class RoleRepository {
     //private Connection connection; // Declare connection variable
 

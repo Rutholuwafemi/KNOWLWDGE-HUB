@@ -1,8 +1,5 @@
 package org.KnowledgeHub;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 //import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle.title;
 //import static org.KnowledgeHub.entity.Knowledge.author;
 

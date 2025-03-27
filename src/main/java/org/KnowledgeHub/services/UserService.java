@@ -1,15 +1,7 @@
 package org.KnowledgeHub.services;
 
-import org.KnowledgeHub.entity.Role;
-import org.KnowledgeHub.entity.User;
-import org.KnowledgeHub.repository.UserRepository;
 //import org.KnowledgeHub.repository.RoleRepository;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+
 
 //public class UserService {
 //    private  RoleRepository roleRepository;

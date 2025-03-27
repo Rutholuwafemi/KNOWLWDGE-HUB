@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-//public class librarianBookManagement {
+public class librarianBookManagement {
     private static ArrayList<Book> books = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    // Book book = new Book();
 
 
-    public static void LbrarianBookManagement() {
-
+    public static void main(String[] args) {
         Knowledge knowledge = new Knowledge();
         while (true) {
             int choice = 0;
@@ -65,7 +63,6 @@ import java.util.Scanner;
     }
 
 
-
     private static void viewBooks() {
         try {
             if (books.isEmpty()) {
@@ -86,6 +83,7 @@ import java.util.Scanner;
         }
         return;
     }
+
     private static void updateBook() {
         boolean bookFound = false;
         System.out.print("Enter the ID of the book to update: ");
@@ -124,6 +122,7 @@ import java.util.Scanner;
         }
 
     }
+
     private static void addBook() {
         Book book = new Book();
         try {
@@ -139,15 +138,12 @@ import java.util.Scanner;
         } catch (InputMismatchException | NullPointerException e) {
             System.out.println("Error: Invalid input! Please enter a numeric value for the book ID.");
             scanner.nextLine();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Invalid input");
         }
 
 
     }
-
-
-
-public void main() {
 }
+
+
