@@ -514,7 +514,7 @@ public class KnowledgeHub {
                     boolean found = false;
                     for (Book book : books) {
                         if (book.getTitle().equalsIgnoreCase(title)) {
-                            System.out.println("📖 Book Found: " + book.getTitle() + " by " + book.getAuthor()+ book.getYear());
+                            System.out.println(" Book Found: " + book.getTitle() + " by " + book.getAuthor()+ book.getYear());
                             found = true;
                             break;
                         }

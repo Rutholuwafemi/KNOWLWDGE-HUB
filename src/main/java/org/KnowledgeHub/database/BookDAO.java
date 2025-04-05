@@ -25,9 +25,9 @@ public class BookDAO {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("✅ Book added successfully!");
+                System.out.println(" Book added successfully!");
             } else {
-                System.out.println("⚠️ No book was added.");
+                System.out.println("⚠ No book was added.");
             }
 
         } catch (SQLException e) {
@@ -108,12 +108,12 @@ public class BookDAO {
             stmt.setInt(1, id);
             int rowsDeleted = stmt.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("✅ Book deleted successfully!");
+                System.out.println(" Book deleted successfully!");
             } else {
-                System.out.println("❌ Book not found.");
+                System.out.println(" Book not found.");
             }
         } catch (SQLException e) {
-            System.out.println("⚠️ Error during delete: " + e.getMessage());
+            System.out.println(" Error during delete: " + e.getMessage());
         }
     }
     public static void searchBooksByTitle(String title) {
@@ -128,7 +128,7 @@ public class BookDAO {
             boolean found = false;
             while (rs.next()) {
                 found = true;
-                System.out.println("📚 Book Found:");
+                System.out.println("Book Found:");
                 System.out.println("ID: " + rs.getInt("id"));
                 System.out.println("Title: " + rs.getString("title"));
                 System.out.println("Author: " + rs.getString("author"));
@@ -167,11 +167,11 @@ public class BookDAO {
             }
 
             if (!found) {
-                System.out.println("❌ No books found by that author.");
+                System.out.println(" No books found by that author.");
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error searching for books by author: " + e.getMessage());
+            System.out.println(" Error searching for books by author: " + e.getMessage());
         }
     }
 
