@@ -1,9 +1,14 @@
 package org.KnowledgeHub;
 
+
 import java.util.*;
 //import org.KnowledgeHub.entity
-import org.KnowledgeHub.entity.LibrarianBM;
+//import org.KnowledgeHub.entity.LibrarianBM;
 //import org.KnowledgeHub.entity.Student;
+import org.KnowledgeHub.dao.UserDAO;
+import org.KnowledgeHub.model.Role;
+//import org.KnowledgeHub.model.User;
+
 class User {
     private int id;
     private String username;
@@ -43,16 +48,18 @@ class Book {
     private int id;
     private String title;
     private String author;
+     private  String year;
 
-    public Book(int id, String title, String author) {
+    public Book(int id, String title, String author, String year) {
         this.id = id;
         this.title = title;
         this.author = author;
+        this.year =year;
     }
 
     @Override
     public String toString() {
-        return "Book [ID=" + id + ", Title=" + title +", Author=" + author +"]";
+        return "Book [ID=" + id + ", Title=" + title +", Author=" + author +", Year=" + year + "]";
     }
 
     public int getId() {
@@ -66,6 +73,11 @@ class Book {
         return author;
     }
 
+    public String getYear() {
+        return year;
+    }
+
+
 
     public void setTitle(String title) {
     }
@@ -75,7 +87,12 @@ class Book {
 
     public void setActive(boolean b) {
     }
+    public void setYear (String year){
+
+    }
+
 }
+
 
  class Student {
     private String studentId;
@@ -129,7 +146,7 @@ class Book {
         Book book = findBookByTitle(title);
 
         if (book != null) {
-            System.out.println("\n Reading: " + book.getTitle() + " by " + book.getAuthor());
+            System.out.println("\n Reading: " + book.getTitle() + " by " + book.getAuthor() + book.getYear());
             readingHistory.add(book);  // Add book to reading history
         } else {
             System.out.println(" Book not found in the library.");
@@ -395,7 +412,10 @@ public class KnowledgeHub {
             System.out.print("Enter book author: ");
             String author = scanner.nextLine().trim();
 
-            books.add(new Book(id, title, author));
+            System.out.print("Enter book year: ");
+            String year = scanner.nextLine().trim();
+
+            books.add(new Book(id, title, author, year));
             System.out.println("Book added successfully!");
         } catch (InputMismatchException e) {
             System.out.println("Error: Invalid input! Please enter a valid numeric book ID.");
@@ -430,6 +450,12 @@ public class KnowledgeHub {
                 if (!author.isEmpty()) {
                     book.setAuthor(author);
                 }
+                System.out.print("Enter book year (leave blank to keep current): ");
+                String year = scanner.nextLine().trim();
+                if (!year.isEmpty()) {
+                    book.setAuthor(year);
+                }
+
 
                 System.out.println("Book updated successfully!");
                 return;
@@ -488,7 +514,7 @@ public class KnowledgeHub {
                     boolean found = false;
                     for (Book book : books) {
                         if (book.getTitle().equalsIgnoreCase(title)) {
-                            System.out.println("📖 Book Found: " + book.getTitle() + " by " + book.getAuthor());
+                            System.out.println("📖 Book Found: " + book.getTitle() + " by " + book.getAuthor()+ book.getYear());
                             found = true;
                             break;
                         }
@@ -545,6 +571,8 @@ public class KnowledgeHub {
         System.out.println("Exiting KnowledgeHub. Goodbye!");
         System.exit(0);
     }
+
+
 }
 
 
