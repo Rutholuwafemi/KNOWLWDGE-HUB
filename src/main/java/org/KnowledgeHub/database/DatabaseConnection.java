@@ -23,9 +23,9 @@ public class DatabaseConnection {
     public static void main(String[] args) {
         Connection conn = getConnection();
         if (conn != null) {
-            System.out.println("✅ Database Connection Successful!");
+            System.out.println(" Database Connection Successful!");
         } else {
-            System.out.println("❌ Failed to Connect to Database.");
+            System.out.println(" Failed to Connect to Database.");
         }
     }
 }

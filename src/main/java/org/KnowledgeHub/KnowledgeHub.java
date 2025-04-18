@@ -5,12 +5,16 @@ import java.util.*;
 //import org.KnowledgeHub.entity
 //import org.KnowledgeHub.entity.LibrarianBM;
 //import org.KnowledgeHub.entity.Student;
-import org.KnowledgeHub.dao.UserDAO;
+//import org.KnowledgeHub.dao;
+import org.KnowledgeHub.dao.WishlistDAO;
+import org.KnowledgeHub.database.BookDAO;
 import org.KnowledgeHub.model.Role;
 //import org.KnowledgeHub.model.User;
 
 class User {
     private int id;
+    public int user_Id;
+    public int book_Id;
     private String username;
     private String password;
     private String role;
@@ -198,9 +202,6 @@ class Book {
             }
         }
     }
-
-
-
     //public void requestBook() {
 }
 public class KnowledgeHub {
@@ -229,6 +230,11 @@ public class KnowledgeHub {
 
     private static void initializeUsers() {
         users.add(new User(1, "admin", "admin123", "Admin"));
+        users.add(new User(2, "student", "student123", "Student"));
+        users.add(new User(3, "librarian", "librarian123", "Librarian"));
+
+
+
     }
 
     private static void displayMainMenu() {
@@ -327,10 +333,13 @@ public class KnowledgeHub {
         scanner.nextLine(); // Consume newline
         System.out.print("Enter librarian password: ");
         String password = scanner.nextLine();
-        if (!password.equals("Custodian123")) {
+        if (!password.equals("Librarian123")) {
             System.out.println("Invalid password. Returning to the main menu.");
             return;
+
         }
+        System.out.println("Student Login Successful!");
+
 
         // Create a Librarian object
        // LibrarianBM librarian = new LibrarianBM();
@@ -495,55 +504,78 @@ public class KnowledgeHub {
     private static void manageCatalog() {
         System.out.println("Catalog management is under development.");
     }
-
     private static void studentMenu() {
-        Student student = new Student();
-        System.out.println("Welcome Student! Access to library content coming soon...");
+        System.out.println("Welcome Student! Access to library content...");
+        scanner.nextLine();
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine();
+        User loggedInStudent = null;
 
+        // Validate login
+        for (User user : users) {
+            if (user.getRole().equalsIgnoreCase("Student") &&
+                    user.getPassword().equalsIgnoreCase(password)) {
+                loggedInStudent = user;
+                break;
+            }
+        }
+
+        if (loggedInStudent == null) {
+            System.out.println("Invalid Student credentials.");
+            return;
+        }
+
+        System.out.println("Student Login Successful!");
+
+        // Student menu loop
         while (true) {
-            displayStudentMenu(); // Corrected method name
-            int choice = getChoice(); // Use getChoice() for user input handling
+            displayStudentMenu();
+            int choice = getChoice();
+
+            int userId = loggedInStudent.getId(); // Get user ID of logged-in student
+            int bookId;
 
             switch (choice) {
                 case 1 -> {
                     System.out.print("Enter book title to search: ");
-                    scanner.nextLine(); // Consume newline
-                    String title = scanner.nextLine(); // Get book title
+                    String title = scanner.nextLine();
 
-                    // Search for book in the list
                     boolean found = false;
                     for (Book book : books) {
                         if (book.getTitle().equalsIgnoreCase(title)) {
-                            System.out.println(" Book Found: " + book.getTitle() + " by " + book.getAuthor()+ book.getYear());
+                            System.out.println("Book Found: " + book.getTitle() + " by " + book.getAuthor() + " (" + book.getYear() + ")");
                             found = true;
                             break;
                         }
                     }
 
                     if (!found) {
-                        System.out.println(" Book not found. Try another title.");
+                        System.out.println("Book not found. Try another title.");
                     }
                 }
-                case 2 -> {
-                    System.out.print("Enter book title to read: ");
-                    String title = scanner.nextLine();
-                    student.readBook(title); // Pass the title to readBook()            readingHistory.add(book);  // Add book to history
 
+                case 2 -> readBook();
 
-                }
                 case 3 -> {
-                    System.out.print("Enter book title to add to wishlist: ");
-                    String title = scanner.nextLine();
-                    student.addToWishlist((Book) (books = new ArrayList<>())); // Pass the title to addToWishlist()
+                    System.out.print("Enter the book ID to add to wishlist: ");
+                    bookId = scanner.nextInt();
+                    scanner.nextLine(); // consume leftover newline
+                    WishlistDAO.addToWishlist(userId, bookId);
                 }
-                case 4 -> student.viewReadingHistory();
-                case 5 -> student.viewWishlist();
-                //case 6 -> student.requestBook();
+
+                case 4 -> BookDAO.viewReadingHistory(userId);
+
+                case 5 -> WishlistDAO.viewWishlist(userId);
+
+                case 6 -> {
+                    System.out.println("Request a book feature is not yet implemented.");
+                }
+
                 case 0 -> {
-                    System.out.println("Exiting... ");
-                    scanner.close();
-                    return; // Exit the menu
+                    System.out.println("Exiting...");
+                    return;
                 }
+
                 default -> System.out.println("Invalid choice. Try again.");
             }
         }
@@ -562,6 +594,15 @@ public class KnowledgeHub {
         System.out.print("Enter your choice: ");
     }
 
+    private static void readBook() {
+        System.out.print("Enter the title of the book to read: ");
+        scanner.nextLine();
+        String title = scanner.nextLine();
+        BookDAO.readBookByTitle(title);
+    }
+
+
+
     private static void guestMenu() {
         System.out.println("Welcome Guest! Browse limited resources coming soon...");
 
@@ -573,6 +614,9 @@ public class KnowledgeHub {
     }
 
 
+    private static void viewReadingHistory(){
+
+    }
 }
 
 

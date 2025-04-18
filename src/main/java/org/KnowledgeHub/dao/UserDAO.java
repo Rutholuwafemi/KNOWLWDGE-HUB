@@ -50,7 +50,7 @@ public class UserDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("❌ Error fetching users: " + e.getMessage());
+            System.out.println(" Error fetching users: " + e.getMessage());
         }
     }
 
